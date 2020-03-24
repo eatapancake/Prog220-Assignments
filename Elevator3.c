@@ -20,7 +20,7 @@ int ChangeFloor (int x)
             printf("DING!! You are already on Floor %d\n", x );
         }
 
-        if (x  > CurrentFloor ) //Elevator going up
+        if (x  > CurrentFloor ) //Elevator going up1
         {
             for(int i = CurrentFloor - 1; i < x; i++)
             {
@@ -57,23 +57,28 @@ struct Node{
 
 void append(struct Node **head, int new_data)
 {
+
 	struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
 	struct Node *last = *head;
 	new_node->data = new_data;
 	new_node->next = NULL;
-    
+    printf("1test");
+
 	if(*head == NULL){
         new_node->prev = NULL;
 		*head = new_node;
 		return;
 	}
+    printf("2test");
 	while(last->next != NULL){
 		last = last->next;
+        //printf("while test");
 	}
+    printf("3test");
 	last->next = new_node;
     new_node-> prev = last;
     return;
-
+    //printf("4test");
 }
 
 void print_list(struct Node *n)
@@ -88,7 +93,7 @@ void print_floor (struct Node *n)
 {
     while(n != NULL) {
         printf("%d\n", n->data);
-      //  ChangeFloor(n->data);
+        ChangeFloor(n->data);
         printf ("The Floor is Now: %d\n\n", CurrentFloor);
         n = n->next;
     }
@@ -107,24 +112,25 @@ void clear_list(struct Node** n)
 	*n = NULL;
 }
 
-
-
 int main()
 {
     struct Node* MyButtons = NULL;
     MyButtons = (struct Node*)malloc(sizeof(struct Node));
+    MyButtons->next = NULL;
 
     while (Again == 1)
     {
         CurrentFloor = 1;
         printf("\n---------------------------------------------------------------\n");
-        printf("Which Floors would you like to go to? (Please separate each floor with a space) \nThe Top Floor is 15.\nThe Current Floor is %d.\n", CurrentFloor );
-        printf("Please enter '30' when you are finished pressing the buttons\n");
+        printf("Which 5 Floors would you like to go to? (Please separate each floor with a space) \nThe Top Floor is 15.\nThe Current Floor is %d.\n", CurrentFloor );
+        //printf("Please type '30' when you are finished pressing the buttons\n");
 
-        while(Check != 30)
+        for(int i = 0; i < 5; i++)
         {
            scanf("%d", &Check);
+            //printf("check test 1");
            append(&MyButtons, Check);
+            //printf("check test 2");
         }      
         print_floor(MyButtons);
         //clear_list(&MyButtons);
@@ -132,7 +138,5 @@ int main()
         printf ("\n---------------------------------------------------------------");
         printf("\nWould you like to go on the elevator again? (Yes = 1, No = 0) \n");
         scanf("%d", &Again );
-
     }
-
 }
